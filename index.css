@@ -1,0 +1,49 @@
+/* NEEX Legal Contract Review System Styles */
+
+@tailwind base;
+@tailwind components; 
+@tailwind utilities;
+
+/* Custom animations */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ensure body has proper background */
+body {
+  background-color: #1a202c; /* brand-dark */
+  color: #e2e8f0; /* brand-text */
+}
+
+/* Prevent flash of unstyled content */
+#root {
+  min-height: 100vh;
+}
+
+/* Loading states */
+.loading-overlay {
+  background-color: rgba(26, 32, 44, 0.9);
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2d3748; /* brand-secondary */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a5568; /* brand-light */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6; /* brand-accent */
+}

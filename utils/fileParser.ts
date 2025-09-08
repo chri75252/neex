@@ -25,10 +25,26 @@ async function parseTxt(file: File): Promise<string> {
 }
 
 async function parseDocx(file: File): Promise<string> {
-    const arrayBuffer = await file.arrayBuffer();
-    // Access mammoth from the global window object.
-    const result = await window.mammoth.extractRawText({ arrayBuffer });
-    return result.value;
+    if (!window.mammoth) {
+        throw new Error('Document processing library not loaded. Please refresh the page and try again.');
+    }
+    
+    try {
+        const arrayBuffer = await file.arrayBuffer();
+        // Access mammoth from the global window object.
+        const result = await window.mammoth.extractRawText({ arrayBuffer });
+        
+        if (!result || !result.value) {
+            throw new Error('Failed to extract text from DOCX file. The file may be corrupted or empty.');
+        }
+        
+        return result.value;
+    } catch (error) {
+        if (error instanceof Error && error.message.includes('not loaded')) {
+            throw error;
+        }
+        throw new Error(`Failed to parse DOCX file: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
 }
 
 async function parsePdf(file: File): Promise<string> {

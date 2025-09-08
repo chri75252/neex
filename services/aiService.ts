@@ -165,8 +165,22 @@ async function openAILikeAnalyzeClause(clauseText: string, config: AppConfig, si
         dangerouslyAllowBrowser: true,
     });
 
-    const userPrompt = `Analyze the following contract clause according to the NEEX Legal Contract Review Blueprint. Your response MUST be a single JSON object that conforms to the provided schema. Do not include any markdown formatting.\n\nClause to Analyze: "${clauseText}"`;
-    const systemInstruction = "You are a world-class legal AI assistant specializing in contract review following the NEEX Blueprint. You must perform a comprehensive analysis based on Interpretation (what it does), Exposure (risks), and Opportunity (leverage). You must also formulate an 'AI Investigatory Question' and a 'Suggested Redline' if needed.";
+    const userPrompt = `Analyze the following contract clause according to the NEEX Legal Contract Review Blueprint. Your response MUST be a single JSON object with these exact fields:
+
+{
+  "interpretation": "A neutral, technical explanation of what the clause enables or controls",
+  "exposure": "An analysis of potential vulnerabilities, risks, or liabilities", 
+  "opportunity": "An analysis of potential leverage, negotiation hooks, or remedies available",
+  "clauseTag": "ONE of: TEC, LEG, FIN, COM, IPX, TRM, DIS, DOC, EXE, EXT",
+  "riskScore": "ONE of: Critical, Material, Procedural",
+  "riskCategories": ["Array of: Financial, Legal, Operational, Compliance, Reputational, Strategic"],
+  "negotiationRecommendation": "Concise, actionable recommendation for negotiation",
+  "aiInvestigatoryQuestion": "Insightful, probing question an analyst should ask",
+  "suggestedRedline": "Re-written clause if changes recommended, or empty string if none"
+}
+
+Clause to Analyze: "${clauseText}"`;
+    const systemInstruction = "You are a world-class legal AI assistant specializing in contract review following the NEEX Blueprint. Return ONLY valid JSON with no additional formatting or explanation.";
 
     const chatCompletion = await openai.chat.completions.create({
         model: getModelName(provider, config),

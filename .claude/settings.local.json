@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)",
+      "Read(//mnt/c/Users/chris/neex-legal-contract-review-system new/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
