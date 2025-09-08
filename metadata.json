@@ -1,0 +1,5 @@
+{
+  "name": "NEEX Legal Contract Review System",
+  "description": "An AI-powered legal contract analysis system that implements the comprehensive NEEX blueprint methodology for clause-by-clause review, risk assessment, and negotiation recommendations.",
+  "requestFramePermissions": []
+}

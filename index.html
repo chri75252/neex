@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEEX Legal Contract Review System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-dark': '#1a202c',
+              'brand-secondary': '#2d3748',
+              'brand-light': '#4a5568',
+              'brand-accent': '#3b82f6',
+              'brand-text': '#e2e8f0',
+              'brand-text-secondary': '#a0aec0',
+              'risk-critical': '#ef4444',
+              'risk-material': '#f97316',
+              'risk-procedural': '#eab308',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/mammoth@1.7.1/mammoth.browser.min.js"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "openai": "https://cdn.jsdelivr.net/npm/openai@4.47.1/+esm",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "pdfjs-dist": "https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.min.mjs",
+    "pdfjs-dist/build/pdf.worker.mjs": "https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.17.0",
+    "openai/": "https://aistudiocdn.com/openai@^5.19.1/",
+    "vite": "https://aistudiocdn.com/vite@^7.1.4",
+    "path": "https://aistudiocdn.com/path@^0.12.7"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-brand-dark font-sans">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "neex-legal-contract-review-system",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react-dom": "^19.1.1",
+    "openai": "^5.19.1",
+    "react": "^19.1.1",
+    "pdfjs-dist": "4.4.168",
+    "@google/genai": "^1.17.0",
+    "vite": "^7.1.4",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
