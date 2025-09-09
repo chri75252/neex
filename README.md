@@ -76,20 +76,26 @@ Open `.env.local` with a text editor and add your API keys for the services you 
 ```env
 # .env.local
 
-# --- Google Gemini Configuration ---
-GEMINI_API_KEY=your_gemini_api_key_here
+#Environment variables for NEEX Legal Contract Review System
+#--- Instructions ---
+#1. FILL IN API KEYS: Provide the API keys for the services you want to use.
+#You can fill in one, two, or all three. The application will let you choose which one to use.
+#2. (Optional) SET A DEFAULT MODEL: If you want to use a specific model, set the AI_MODEL variable.
+#If you leave it blank, the system will use a powerful default model for your chosen provider.
+#--- Google Gemini Configuration ---
+#Your secret API key for Google Gemini.
+#GEMINI_API_KEY=
+#GEMINI_ALLOWED_MODELS=
 
 # --- OpenAI Configuration ---
-OPENAI_API_KEY=your_openai_api_key_here
+# Your secret API key for OpenAI.
+OPENAI_API_KEY=
+OPENAI_ALLOWED_MODELS=gpt-5-mini
 
-# --- OpenRouter Configuration ---
-OPENROUTER_API_KEY=your_openrouter_api_key_here
-
-# --- Model Configuration (Optional) ---
-# Specify a model name (e.g., "gemini-2.5-flash", "gpt-4o", "openai/gpt-4o").
-# If left blank, powerful defaults will be used for each provider.
-AI_MODEL=
-```
+#--- OpenRouter Configuration ---
+#Your secret API key for OpenRouter.ai.
+#OPENROUTER_API_KEY=
+#AI_MODEL=deepseek/deepseek-chat-v3.1:free
 
 ### 4. Run the Application
 ```bash
