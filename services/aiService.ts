@@ -20,6 +20,26 @@ const clauseAnalysisSchemaForGemini = {
     required: ["interpretation", "exposure", "opportunity", "clauseTag", "riskScore", "riskCategories", "negotiationRecommendation", "aiInvestigatoryQuestion", "suggestedRedline"]
 };
 
+// --- HELPER FUNCTIONS ---
+
+function cleanJsonResponse(responseText: string): string {
+    // Remove markdown formatting that some models add
+    let cleaned = responseText.trim();
+    
+    // Remove ```json and ``` markers
+    if (cleaned.startsWith('```json')) {
+        cleaned = cleaned.replace(/^```json\s*/, '');
+    }
+    if (cleaned.startsWith('```')) {
+        cleaned = cleaned.replace(/^```\s*/, '');
+    }
+    if (cleaned.endsWith('```')) {
+        cleaned = cleaned.replace(/\s*```$/, '');
+    }
+    
+    return cleaned.trim();
+}
+
 // --- ABORTABLE RETRY LOGIC ---
 
 async function withRetry<T>(
@@ -147,7 +167,8 @@ async function openAILikeSplitContract(contractText: string, config: AppConfig, 
     }, { signal });
 
     const responseText = chatCompletion.choices[0].message.content ?? '{}';
-    const jsonResponse = JSON.parse(responseText);
+    const cleanedResponse = cleanJsonResponse(responseText);
+    const jsonResponse = JSON.parse(cleanedResponse);
     if (jsonResponse && Array.isArray(jsonResponse.clauses)) {
         return jsonResponse.clauses.filter(c => c.trim().length > 10);
     }
@@ -180,7 +201,7 @@ async function openAILikeAnalyzeClause(clauseText: string, config: AppConfig, si
 }
 
 Clause to Analyze: "${clauseText}"`;
-    const systemInstruction = "You are a world-class legal AI assistant specializing in contract review following the NEEX Blueprint. Return ONLY valid JSON with no additional formatting or explanation.";
+    const systemInstruction = "You are a world-class legal AI assistant specializing in contract review following the NEEX Blueprint. Return ONLY valid JSON with no additional formatting, markdown, or explanation. Do not wrap the JSON in code blocks.";
 
     const chatCompletion = await openai.chat.completions.create({
         model: getModelName(provider, config),
@@ -192,7 +213,8 @@ Clause to Analyze: "${clauseText}"`;
     }, { signal });
 
     const responseText = chatCompletion.choices[0].message.content ?? '{}';
-    const jsonResponse = JSON.parse(responseText);
+    const cleanedResponse = cleanJsonResponse(responseText);
+    const jsonResponse = JSON.parse(cleanedResponse);
     if (jsonResponse && jsonResponse.interpretation) {
         return jsonResponse as Omit<AnalysisResult, 'clause'>;
     }
